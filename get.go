@@ -7,7 +7,13 @@ import (
 )
 
 func Get() ([]User, error) {
-	res, err := http.Get("https://jsonplaceholder.typicode.com/users")
+	client := http.DefaultClient
+	req, err := http.NewRequest(http.MethodGet, "https://jsonplaceholder.typicode.com/users", nil)
+	if err != nil {
+		return nil, err
+	}
+
+	res, err := client.Do(req)
 	if err != nil {
 		return nil, err
 	}
